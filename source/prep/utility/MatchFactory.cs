@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace prep.utility
 {
-  public class MatchFactory<ItemToMatch, PropertyType> : IMatchFactory<ItemToMatch, PropertyType>
+  public class MatchFactory<ItemToMatch, PropertyType> : ICreateMatchers<ItemToMatch, PropertyType>
   {
     PropertyAccessor<ItemToMatch, PropertyType> accessor;
 

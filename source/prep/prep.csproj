@@ -70,7 +70,7 @@
     <Compile Include="utility\Condition.cs" />
     <Compile Include="utility\ConditionalMatch.cs" />
     <Compile Include="utility\EnumerableExtensions.cs" />
-    <Compile Include="utility\IMatchFactory.cs" />
+    <Compile Include="utility\ICreateMatchers.cs" />
     <Compile Include="utility\MatchFactory.cs" />
     <Compile Include="utility\IMatchAnItem.cs" />
     <Compile Include="utility\MatchExtensions.cs" />
