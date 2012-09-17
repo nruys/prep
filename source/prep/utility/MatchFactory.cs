@@ -25,7 +25,22 @@ namespace prep.utility
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
     {
-      throw new NotImplementedException();
+        return new NotMatch<ItemToMatch>(equal_to(value));
     }
   }
+
+    public class NotMatch<ItemToMatch> : IMatchAn<ItemToMatch>
+    {
+        private IMatchAn<ItemToMatch> match;
+
+        public NotMatch(IMatchAn<ItemToMatch> match)
+        {
+            this.match = match;
+        }
+
+        public bool matches(ItemToMatch item)
+        {
+            return !match.matches(item);
+        }
+    }
 }
