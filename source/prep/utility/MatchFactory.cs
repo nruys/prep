@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using prep.collections;
 
 namespace prep.utility
 {
@@ -18,20 +20,12 @@ namespace prep.utility
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-        if (values == null)
-            return null;
+      return new ConditionalMatch<ItemToMatch>(x => new List<PropertyType>(values).Contains(accessor(x)));
+    }
 
-        IMatchAn<ItemToMatch> expressionIBuildUp = new ConditionalMatch<ItemToMatch>(x => false);
-
-        foreach (var value in values)
-        {
-            var theval = value;
-            expressionIBuildUp = new OrMatch<ItemToMatch>(expressionIBuildUp, 
-                                                          new ConditionalMatch<ItemToMatch>(
-                                                              x => accessor(x).Equals(theval)));
-        }
-
-        return expressionIBuildUp;
+    public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
+    {
+      throw new NotImplementedException();
     }
   }
 }
