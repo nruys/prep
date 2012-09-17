@@ -66,22 +66,20 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies_published_by_pixar()
     {
-        return FilterMoviesBy(m => m.production_studio == ProductionStudio.Pixar);
+        return filter_movies_by(m => m.production_studio == ProductionStudio.Pixar);
     }
 
-    public IEnumerable<Movie> FilterMoviesBy(Func<Movie, bool> filter)
+    public delegate bool MovieCondition(Movie movie);
+
+    public IEnumerable<Movie> filter_movies_by(MovieCondition filter)
     {
-        foreach (var movie in movies)
-        {
-            if (filter(movie))
-                yield return movie;
-        }
+      return movies.all_items_matching()
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
         return
-            FilterMoviesBy(
+            filter_movies_by(
                 m => m.production_studio == ProductionStudio.Pixar || m.production_studio == ProductionStudio.Disney);
     }
 
@@ -163,27 +161,27 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies_not_published_by_pixar()
     {
-        return FilterMoviesBy(m => m.production_studio != ProductionStudio.Pixar);
+        return filter_movies_by(m => m.production_studio != ProductionStudio.Pixar);
     }
 
     public IEnumerable<Movie> all_movies_published_after(int year)
     {
-        return FilterMoviesBy(m => m.date_published.Year > year);
+        return filter_movies_by(m => m.date_published.Year > year);
     }
 
     public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
     {
-        return FilterMoviesBy(m => m.date_published.Year >= startingYear && m.date_published.Year <= endingYear);
+        return filter_movies_by(m => m.date_published.Year >= startingYear && m.date_published.Year <= endingYear);
     }
 
     public IEnumerable<Movie> all_kid_movies()
     {
-        return FilterMoviesBy(m => m.genre == Genre.kids);
+        return filter_movies_by(m => m.genre == Genre.kids);
     }
 
     public IEnumerable<Movie> all_action_movies()
     {
-        return FilterMoviesBy(m => m.genre == Genre.action);
+        return filter_movies_by(m => m.genre == Genre.action);
     }
 
     public IEnumerable<Movie> sort_all_movies_by_date_published_descending()
