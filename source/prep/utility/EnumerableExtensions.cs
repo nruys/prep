@@ -11,6 +11,12 @@ namespace prep.utility
     }
 
     public static IEnumerable<ItemToFilter> all_items_matching<ItemToFilter>(this IEnumerable<ItemToFilter> items,
+                                                                             IMatchAn<ItemToFilter> specification)
+    {
+      return items.all_items_matching(specification.matches);
+    }
+
+    static IEnumerable<ItemToFilter> all_items_matching<ItemToFilter>(this IEnumerable<ItemToFilter> items,
                                                                              Condition<ItemToFilter> filter)
     {
       foreach (var item in items)

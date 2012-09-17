@@ -69,11 +69,14 @@ namespace prep.collections
         return filter_movies_by(m => m.production_studio == ProductionStudio.Pixar);
     }
 
-    public delegate bool MovieCondition(Movie movie);
-
-    public IEnumerable<Movie> filter_movies_by(MovieCondition filter)
+    public IEnumerable<Movie> filter_movies_by(Condition<Movie> filter)
     {
-        return movies.all_items_matching(filter.Invoke);
+      return movies.all_items_matching(new ConditionalMatch<Movie>(filter));
+    }
+
+    bool is_pixar_movie(Movie movie)
+    {
+      throw new NotImplementedException();
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
