@@ -19,67 +19,264 @@ namespace prep.collections
 
     public void add(Movie movie)
     {
-      throw new NotImplementedException();
+        foreach (var theMovie in movies)
+        {
+            if (theMovie.title == movie.title)
+                return;
+        }
+        movies.Add(movie);
     }
 
     public IEnumerable<Movie> sort_all_movies_by_title_descending()
     {
-      throw new NotImplementedException();
+        var titleInit = "a";
+        var minimalTitle = titleInit;
+        Movie minimalMovie = null;
+
+        var numberOfMovies = 0;
+        foreach (var movie in movies)
+        {
+            numberOfMovies++;
+        }
+
+        for (int ctr = 0; ctr < numberOfMovies; ctr++)
+        {
+            var foundIndex = 0;
+            for (int innerctr = ctr; innerctr < numberOfMovies; innerctr++)
+            {
+                var movie = movies[innerctr];
+                var result = movie.title.CompareTo(minimalTitle);
+                if (result > 0)
+                {
+                    minimalTitle = movie.title;
+                    minimalMovie = movie;
+                    foundIndex = innerctr;
+                }
+            }
+
+            var temp = movies[ctr];
+            movies[ctr] = movies[foundIndex];
+            movies[foundIndex] = temp;
+            minimalTitle = titleInit;
+        }
+
+        foreach (var movie in movies)
+        {
+            yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar()
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.production_studio == ProductionStudio.Pixar)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.production_studio == ProductionStudio.Pixar || movie.production_studio == ProductionStudio.Disney)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> sort_all_movies_by_title_ascending()
     {
-      throw new NotImplementedException();
+        var titleInit = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
+        var minimalTitle = titleInit;
+        Movie minimalMovie = null;
+
+        var numberOfMovies = 0;
+        foreach (var movie in movies)
+        {
+            numberOfMovies++;
+        }
+
+        for (int ctr = 0; ctr < numberOfMovies; ctr++)
+        {
+            var foundIndex = 0;
+            for (int innerctr = ctr; innerctr < numberOfMovies; innerctr++)
+            {
+                var movie = movies[innerctr];
+                var result = movie.title.CompareTo(minimalTitle);
+                if (result < 0)
+                {
+                    minimalTitle = movie.title;
+                    minimalMovie = movie;
+                    foundIndex = innerctr;
+                }
+            }
+
+            var temp = movies[ctr];
+            movies[ctr] = movies[foundIndex];
+            movies[foundIndex] = temp;
+            minimalTitle = titleInit;
+        }
+
+        foreach (var movie in movies)
+        {
+            yield return movie;
+        }
     }
 
     public IEnumerable<Movie> sort_all_movies_by_movie_studio_and_year_published()
     {
-      throw new NotImplementedException();
+        ProductionStudio minimalStudio = ProductionStudio.MGM;
+        Movie minimalMovie = null;
+
+        var numberOfMovies = 0;
+        foreach (var movie in movies)
+        {
+            numberOfMovies++;
+        }
+
+        for (int ctr = 0; ctr < numberOfMovies; ctr++)
+        {
+            var foundIndex = 0;
+            for (int innerctr = ctr; innerctr < numberOfMovies; innerctr++)
+            {
+                var movie = movies[innerctr];
+                if (movie.production_studio == minimalStudio)
+                {
+                    minimalStudio = movie.production_studio;
+                    minimalMovie = movie;
+                    foundIndex = innerctr;
+                }
+            }
+
+            var temp = movies[ctr];
+            movies[ctr] = movies[foundIndex];
+            movies[foundIndex] = temp;
+            minimalStudio = ProductionStudio.MGM;
+        }
+
+        foreach (var movie in movies)
+        {
+            yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_movies_not_published_by_pixar()
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.production_studio != ProductionStudio.Pixar)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_movies_published_after(int year)
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.date_published.Year > year)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.date_published.Year >= startingYear && movie.date_published.Year <= endingYear)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_kid_movies()
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.genre == Genre.kids)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> all_action_movies()
     {
-      throw new NotImplementedException();
+        foreach (var movie in movies)
+        {
+            if (movie.genre == Genre.action)
+                yield return movie;
+        }
     }
 
     public IEnumerable<Movie> sort_all_movies_by_date_published_descending()
     {
-      throw new NotImplementedException();
+        var maximumMovieYear = DateTime.MinValue;
+        Movie minimalMovie = null;
+
+        var numberOfMovies = 0;
+        foreach (var movie in movies)
+        {
+            numberOfMovies++;
+        }
+
+        for (int ctr = 0; ctr < numberOfMovies; ctr++)
+        {
+            var foundIndex = 0;
+            for (int innerctr = ctr; innerctr < numberOfMovies; innerctr++)
+            {
+                var movie = movies[innerctr];
+                if (movie.date_published > maximumMovieYear)
+                {
+                    maximumMovieYear = movie.date_published;
+                    minimalMovie = movie;
+                    foundIndex = innerctr;
+                }
+            }
+
+            var temp = movies[ctr];
+            movies[ctr] = movies[foundIndex];
+            movies[foundIndex] = temp;
+            maximumMovieYear = DateTime.MinValue;
+        }
+
+        foreach (var movie in movies)
+        {
+            yield return movie;
+        }
     }
 
     public IEnumerable<Movie> sort_all_movies_by_date_published_ascending()
     {
-      throw new NotImplementedException();
+        var minimalMovieYear = DateTime.MaxValue;
+        Movie minimalMovie = null;
+
+        var numberOfMovies = 0;
+        foreach (var movie in movies)
+        {
+            numberOfMovies++;
+        }
+
+        for (int ctr = 0; ctr < numberOfMovies; ctr++ )
+        {
+            var foundIndex = 0;
+            for (int innerctr = ctr; innerctr < numberOfMovies; innerctr++)
+            {
+                var movie = movies[innerctr];
+                if (movie.date_published < minimalMovieYear)
+                {
+                    minimalMovieYear = movie.date_published;
+                    minimalMovie = movie;
+                    foundIndex = innerctr;
+                }                
+            }
+
+            var temp = movies[ctr];
+            movies[ctr] = movies[foundIndex];
+            movies[foundIndex] = temp;
+            minimalMovieYear = DateTime.MaxValue;
+        }
+
+        foreach (var movie in movies)
+        {
+            yield return movie;
+        }
     }
   }
 }
