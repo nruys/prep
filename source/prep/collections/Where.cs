@@ -1,4 +1,5 @@
-﻿using prep.utility;
+﻿using System;
+using prep.utility;
 
 namespace prep.collections
 {
@@ -6,18 +7,10 @@ namespace prep.collections
 
   public class Where<ItemToMatch>
   {
-    public static StudioAccessor has_a(StudioAccessor accessor)
+    public static void has_a(StudioAccessor accessor)
     {
-      return accessor;
+      throw new NotImplementedException();
     }
   }
 
-  public static  class StudioAccessorExtensions
-  {
-    public static IMatchAn<Movie> equal_to(this StudioAccessor accessor,
-                                           ProductionStudio value)
-    {
-      return new ConditionalMatch<Movie>(x => x.production_studio == value);
-    }
-  }
 }
