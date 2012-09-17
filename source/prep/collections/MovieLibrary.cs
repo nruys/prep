@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using prep.utility;
 
 namespace prep.collections
 {
@@ -14,17 +15,14 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies()
     {
-      return this.movies;
+      return movies.one_at_a_time();
     }
 
     public void add(Movie movie)
     {
-        foreach (var theMovie in movies)
-        {
-            if (theMovie.title == movie.title)
-                return;
-        }
-        movies.Add(movie);
+      if (movies.Contains(movie)) return;
+
+      movies.Add(movie);
     }
 
     public IEnumerable<Movie> sort_all_movies_by_title_descending()
