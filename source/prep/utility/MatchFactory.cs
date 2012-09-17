@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using prep.collections;
 
 namespace prep.utility
 {
@@ -25,22 +23,7 @@ namespace prep.utility
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
     {
-        return new NotMatch<ItemToMatch>(equal_to(value));
+      return new NegatingMatch<ItemToMatch>(equal_to(value));
     }
   }
-
-    public class NotMatch<ItemToMatch> : IMatchAn<ItemToMatch>
-    {
-        private IMatchAn<ItemToMatch> match;
-
-        public NotMatch(IMatchAn<ItemToMatch> match)
-        {
-            this.match = match;
-        }
-
-        public bool matches(ItemToMatch item)
-        {
-            return !match.matches(item);
-        }
-    }
 }
