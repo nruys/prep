@@ -71,7 +71,7 @@ namespace prep.collections
 
     public IEnumerable<Movie> filter_movies_by(Condition<Movie> filter)
     {
-      return movies.all_items_matching(new ConditionalMatch<Movie>(filter));
+      return movies.all_items_matching(Match<Movie>.Condition(filter));
     }
 
     bool is_pixar_movie(Movie movie)

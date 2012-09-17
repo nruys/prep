@@ -18,7 +18,7 @@ namespace prep.utility
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-      return new ConditionalMatch<ItemToMatch>(x => new List<PropertyType>(values).Contains(accessor(x)));
+      return Match<ItemToMatch>.Condition(x => new List<PropertyType>(values).Contains(accessor(x)));
     }
 
     public IMatchAn<ItemToMatch> not_equal_to(PropertyType value)
