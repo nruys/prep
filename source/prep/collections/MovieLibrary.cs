@@ -66,20 +66,23 @@ namespace prep.collections
 
     public IEnumerable<Movie> all_movies_published_by_pixar()
     {
+        return FilterMoviewBy(m => m.production_studio == ProductionStudio.Pixar);
+    }
+
+    public IEnumerable<Movie> FilterMoviewBy(Func<Movie, bool> filter)
+    {
         foreach (var movie in movies)
         {
-            if (movie.production_studio == ProductionStudio.Pixar)
+            if (filter(movie))
                 yield return movie;
         }
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
     {
-        foreach (var movie in movies)
-        {
-            if (movie.production_studio == ProductionStudio.Pixar || movie.production_studio == ProductionStudio.Disney)
-                yield return movie;
-        }
+        return
+            FilterMoviewBy(
+                m => m.production_studio == ProductionStudio.Pixar || m.production_studio == ProductionStudio.Disney);
     }
 
     public IEnumerable<Movie> sort_all_movies_by_title_ascending()
