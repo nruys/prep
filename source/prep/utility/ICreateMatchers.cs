@@ -1,9 +1,10 @@
 ﻿namespace prep.utility
 {
-    public interface ICreateMatchers<ItemToMatch, PropertyType>
-    {
-        IMatchAn<ItemToMatch> equal_to(PropertyType value);
-        IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values);
-        IMatchAn<ItemToMatch> not_equal_to(PropertyType value);
-    }
+  public interface ICreateMatchers<ItemToMatch, PropertyType>
+  {
+    IMatchAn<ItemToMatch> equal_to(PropertyType value);
+    IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values);
+    IMatchAn<ItemToMatch> not_equal_to(PropertyType value);
+    IMatchAn<ItemToMatch> create_using(Condition<ItemToMatch> condition);
+  }
 }

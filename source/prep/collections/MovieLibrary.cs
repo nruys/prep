@@ -64,27 +64,6 @@ namespace prep.collections
         }
     }
 
-    public IEnumerable<Movie> all_movies_published_by_pixar()
-    {
-        return filter_movies_by(m => m.production_studio == ProductionStudio.Pixar);
-    }
-
-    public IEnumerable<Movie> filter_movies_by(Condition<Movie> filter)
-    {
-      return movies.all_items_matching(Match<Movie>.Condition(filter));
-    }
-
-    bool is_pixar_movie(Movie movie)
-    {
-      throw new NotImplementedException();
-    }
-
-    public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
-    {
-        return
-            filter_movies_by(
-                m => m.production_studio == ProductionStudio.Pixar || m.production_studio == ProductionStudio.Disney);
-    }
 
     public IEnumerable<Movie> sort_all_movies_by_title_ascending()
     {
@@ -162,30 +141,6 @@ namespace prep.collections
         }
     }
 
-    public IEnumerable<Movie> all_movies_not_published_by_pixar()
-    {
-        return filter_movies_by(m => m.production_studio != ProductionStudio.Pixar);
-    }
-
-    public IEnumerable<Movie> all_movies_published_after(int year)
-    {
-        return filter_movies_by(m => m.date_published.Year > year);
-    }
-
-    public IEnumerable<Movie> all_movies_published_between_years(int startingYear, int endingYear)
-    {
-        return filter_movies_by(m => m.date_published.Year >= startingYear && m.date_published.Year <= endingYear);
-    }
-
-    public IEnumerable<Movie> all_kid_movies()
-    {
-        return filter_movies_by(m => m.genre == Genre.kids);
-    }
-
-    public IEnumerable<Movie> all_action_movies()
-    {
-        return filter_movies_by(m => m.genre == Genre.action);
-    }
 
     public IEnumerable<Movie> sort_all_movies_by_date_published_descending()
     {

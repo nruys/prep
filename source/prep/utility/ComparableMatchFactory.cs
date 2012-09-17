@@ -8,7 +8,8 @@ namespace prep.utility
     PropertyAccessor<ItemToMatch, PropertyType> accessor;
     ICreateMatchers<ItemToMatch, PropertyType> original;
 
-    public ComparableMatchFactory(PropertyAccessor<ItemToMatch, PropertyType> accessor, ICreateMatchers<ItemToMatch, PropertyType> original)
+    public ComparableMatchFactory(PropertyAccessor<ItemToMatch, PropertyType> accessor,
+                                  ICreateMatchers<ItemToMatch, PropertyType> original)
     {
       this.accessor = accessor;
       this.original = original;
@@ -16,13 +17,18 @@ namespace prep.utility
 
     public IMatchAn<ItemToMatch> greater_than(PropertyType value)
     {
-        return Match<ItemToMatch>.Condition(x => (accessor(x).CompareTo(value) > 0));
+      return create_using(x => (accessor(x).CompareTo(value) > 0));
+    }
+
+    public IMatchAn<ItemToMatch> create_using(Condition<ItemToMatch> condition)
+    {
+      return original.create_using(condition);
     }
 
     public IMatchAn<ItemToMatch> between(PropertyType start, PropertyType end)
     {
-        return
-            Match<ItemToMatch>.Condition(x => (accessor(x).CompareTo(start) >= 0) && (accessor(x).CompareTo(end) <= 0));
+      return
+        create_using(x => (accessor(x).CompareTo(start) >= 0) && (accessor(x).CompareTo(end) <= 0));
     }
 
     public IMatchAn<ItemToMatch> equal_to(PropertyType value)
