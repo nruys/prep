@@ -73,7 +73,7 @@ namespace prep.collections
 
     public IEnumerable<Movie> filter_movies_by(MovieCondition filter)
     {
-      return movies.all_items_matching()
+        return movies.all_items_matching(filter.Invoke);
     }
 
     public IEnumerable<Movie> all_movies_published_by_pixar_or_disney()
