@@ -13,12 +13,25 @@ namespace prep.utility
 
     public IMatchAn<ItemToMatch> equal_to(PropertyType value)
     {
-      return new ConditionalMatch<ItemToMatch>(x => accessor(x).Equals(value));
+      return equal_to_any(value);
     }
 
     public IMatchAn<ItemToMatch> equal_to_any(params PropertyType[] values)
     {
-      throw new NotImplementedException();
+        if (values == null)
+            return null;
+
+        IMatchAn<ItemToMatch> expressionIBuildUp = new ConditionalMatch<ItemToMatch>(x => false);
+
+        foreach (var value in values)
+        {
+            var theval = value;
+            expressionIBuildUp = new OrMatch<ItemToMatch>(expressionIBuildUp, 
+                                                          new ConditionalMatch<ItemToMatch>(
+                                                              x => accessor(x).Equals(theval)));
+        }
+
+        return expressionIBuildUp;
     }
   }
 }
